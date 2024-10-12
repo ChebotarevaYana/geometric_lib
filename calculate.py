@@ -1,33 +1,26 @@
-import circle
-import square
+import circle  #импортируем модуль circle, содержащий функции для круга
+import square  #импортируем модуль square, содержащий функции для квадрата
 
+figs = ['circle', 'square']  #список доступных фигур
+funcs = ['perimeter', 'area']  #список доступных функций (периметр и площадь)
+sizes = {}  #словарь для хранения количества необходимых размеров для каждой фигуры и функции
 
-figs = ['circle', 'square']
-funcs = ['perimeter', 'area']
-sizes = {}
+def calc(fig, func, size):  #определяем функцию calc для вычисления периметра или площади
+    assert fig in figs  #проверяем, что фигура присутствует в списке figs
+    assert func in funcs  #проверяем, что функция присутствует в списке funcs
 
-def calc(fig, func, size):
-	assert fig in figs
-	assert func in funcs
+    result = eval(f'{fig}.{func}(*{size})')  #вызываем функцию (например, circle.perimeter(radius)) и получаем результат
+    print(f'{func} of {fig} is {result}')  #выводим результат в консоль
 
-	result = eval(f'{fig}.{func}(*{size})')
-	print(f'{func} of {fig} is {result}')
+if __name__ == "__main__":  #запускаем код, только если файл запущен напрямую, а не импортирован
+    func = ''  #инициализируем переменную func (имя функции)
+    fig = ''  #инициализируем переменную fig (имя фигуры)
+    size = list()  #инициализируем список size (размеры фигуры)
 
-if __name__ == "__main__":
-	func = ''
-	fig = ''
-	size = list()
+    while fig not in figs:  #цикл ввода имени фигуры, пока оно не будет корректным
+        fig = input(f"Enter figure name, avaliable are {figs}:\n")  #запрашиваем имя фигуры у пользователя
     
-	while fig not in figs:
-		fig = input(f"Enter figure name, avaliable are {figs}:\n")
-	
-	while func not in funcs:
-		func = input(f"Enter function name, avaliable are {funcs}:\n")
-	
-	while len(size) != sizes.get(f"{func}-{fig}", 1):
-		size = list(map(int, input("Input figure sizes separated by space, 1 for circle and square\n").split(' ')))
-	
-	calc(fig, func, size)
-
-
-
+    while func not in funcs:  #цикл ввода имени функции, пока оно не будет корректным
+        func = input(f"Enter function name, avaliable are {funcs}:\n")  #запрашиваем имя функции у пользователя
+    
+    while len(size) != sizes.get(f"{func}-{fig}", 1):  #цикл ввода размеров, пока не будет введено нужное количество
